@@ -13,6 +13,7 @@ from .filters import PostFilter
 from api.permissions import AllowAny, IsAuthenticated
 from content.models import Post
 
+
 #region Base Classes
 
 class PostAPIView(GenericAPIView):

@@ -39,6 +39,11 @@ class User(AbstractModel, AbstractBaseUser):
 
     name = models.CharField(_("Name"), max_length=32, blank=True)   
     password = models.CharField(_("Password"), max_length=128)
+    bio = models.TextField(blank=True, null=True)
+
+    class Meta:
+        app_label = "access"
+   
     is_active = models.BooleanField(
         _("Active"),
         help_text=_("Designates whether this user can access into their account."),
@@ -65,7 +70,7 @@ class User(AbstractModel, AbstractBaseUser):
 
     objects = UserManager()
 
-    def __str__(self):
+    def _str_(self):
         return f"{self.email} ({self.name})"
     
     
@@ -81,3 +86,4 @@ class User(AbstractModel, AbstractBaseUser):
     class Meta(AbstractModel.Meta):
         verbose_name = _("User")
         verbose_name_plural = _("Users")
+

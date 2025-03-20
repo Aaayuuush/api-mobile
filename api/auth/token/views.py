@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from rest_framework_simplejwt import views as jwt_views
 from rest_framework_simplejwt.settings import api_settings as jwt_settings
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
-
 from api import exceptions
 from api.auth.token.serializers import TokenCreateSerializer, TokenRefreshSerializer
 from api.permissions import AllowAny
@@ -61,7 +60,7 @@ class TokenRefreshView(jwt_views.TokenViewBase):
                 {"detail": "Invalid Token", "code": "invalid_token"}
             )
 
-        if jwt_settings.ROTATE_REFRESH_TOKENS:
+        if jwt_settings.ROTATE_REFESH_TOKENS:
             refresh.set_jti()
             refresh.set_exp()
 

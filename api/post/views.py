@@ -12,6 +12,8 @@ from .serializers import PostSerializers
 from .filters import PostFilter
 from api.permissions import AllowAny, IsAuthenticated
 from content.models import Post
+from rest_framework import viewsets
+from rest_framework.pagination import PageNumberPagination
 
 
 #region Base Classes
@@ -32,6 +34,11 @@ class PostMeAPIView(PostAPIView):
 
     def get_queryset(self):
         return ALL_POSTS_QUERYSET.filter(owner=self.request.user)
+    
+'''class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializers'''
+
 
 
 #endregion
@@ -64,6 +71,7 @@ class PostRetrieveView(RetrieveModelMixin, PostAPIView):
 #region Me
     
 class PostMeListView(ListModelMixin, PostMeAPIView):
+    pagination_class = PageNumberPagination
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)

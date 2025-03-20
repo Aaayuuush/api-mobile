@@ -14,6 +14,7 @@ from APIs_FOR_MOBILE.environment import ENV
 from pathlib import Path
 from datetime import timedelta
 import dj_database_url
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -123,6 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -144,6 +146,9 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication"
     ],
+    #"DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    #"PAGE_SIZE": ENV.int("API_DEFAULT_PAGE_SIZE", default=10),
+    "DEFAULT_PAGINATION_CLASS": "api.pagination.PageNumberPagination",
 }
 
 SIMPLE_JWT = {
@@ -160,3 +165,6 @@ SIMPLE_JWT = {
 
 AUTH_TOKEN_TIMEOUT = ENV.int("AUTH_TOKEN_TIMEOUT", default=259200)
 AUTH_TOKEN_SECRET = ENV.str("AUTH_TOKEN_SECRET")
+
+API_DEFAULT_PAGE_SIZE = ENV.int("API_DEFAULT_PAGE_SIZE", default=10)
+API_MAX_PAGE_SIZE = ENV.int("API_MAX_PAGE_SIZE", default=100)
